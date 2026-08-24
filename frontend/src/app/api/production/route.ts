@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const status = searchParams.get('status');
 
-    const query: Record<string, unknown> = {};
+    const query: any = {};
     if (status) query.status = status;
 
     const items = await Production.find(query)

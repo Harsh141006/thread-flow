@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
     const category = searchParams.get('category');
     const lowStock = searchParams.get('lowStock');
 
-    const query: Record<string, unknown> = {};
+    const query: any = {};
     if (category) query.category = category;
     if (lowStock === 'true') {
       query.$expr = { $lte: ['$quantity', '$reorderLevel'] };

@@ -20,7 +20,7 @@ export default function OrderDetailPage() {
   const params = useParams();
   const router = useRouter();
   const { toast } = useToast();
-  const [order, setOrder] = useState<Record<string, unknown> | null>(null);
+  const [order, setOrder] = useState<any | null>(null);
   const [risk, setRisk] = useState<IRiskAssessment | null>(null);
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
@@ -72,7 +72,7 @@ export default function OrderDetailPage() {
 
   const currentStatus = String(order.status) as OrderStatus;
   const nextStatuses = STATUS_TRANSITIONS[currentStatus] || [];
-  const customer = order.customer as Record<string, unknown> | null;
+  const customer = order.customer as any | null;
   const days = daysUntilDeadline(String(order.deadline));
   const threadColors = (order.threadColors as string[]) || [];
 

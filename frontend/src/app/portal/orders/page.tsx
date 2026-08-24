@@ -18,7 +18,7 @@ import { OrderStatus, ORDER_STATUSES } from '@/types';
 export default function PortalOrdersPage() {
   const { data: session } = useSession();
   const router = useRouter();
-  const [orders, setOrders] = useState<Record<string, unknown>[]>([]);
+  const [orders, setOrders] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('');

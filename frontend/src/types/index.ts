@@ -49,6 +49,7 @@ export type OrderStatus =
   | 'approval'
   | 'scheduled'
   | 'production'
+  | 'qc'
   | 'rework'
   | 'packed'
   | 'dispatched'

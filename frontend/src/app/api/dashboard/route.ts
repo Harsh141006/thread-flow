@@ -24,7 +24,7 @@ export async function GET() {
     // Status breakdown
     const statusBreakdown: Record<OrderStatus, number> = {
       draft: 0, design: 0, approval: 0, scheduled: 0,
-      production: 0, qc: 0, rework: 0, packed: 0, delivered: 0,
+      production: 0, qc: 0, rework: 0, packed: 0, dispatched: 0, delivered: 0, rejected: 0,
     };
     let overdueOrders = 0;
 

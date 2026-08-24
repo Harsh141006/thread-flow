@@ -59,7 +59,9 @@ export function getStatusColor(status: OrderStatus): string {
     qc: 'bg-purple-50 text-purple-700',
     rework: 'bg-[var(--color-danger-light)] text-[var(--color-danger)]',
     packed: 'bg-teal-50 text-teal-700',
+    dispatched: 'bg-cyan-50 text-cyan-700',
     delivered: 'bg-[var(--color-success-light)] text-[var(--color-success)]',
+    rejected: 'bg-[var(--color-bg-muted)] text-[var(--color-text-secondary)]',
   };
   return colors[status];
 }

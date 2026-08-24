@@ -22,7 +22,7 @@ interface TableProps<T> {
   loading?: boolean;
 }
 
-export default function Table<T extends Record<string, unknown>>({
+export default function Table<T extends Record<string, any>>({
   columns,
   data,
   keyField = '_id',

@@ -18,7 +18,7 @@ import { formatDateTime } from '@/utils';
 
 export default function DesignsPage() {
   const { toast } = useToast();
-  const [designs, setDesigns] = useState<Record<string, unknown>[]>([]);
+  const [designs, setDesigns] = useState<any[]>([]);
   const [orders, setOrders] = useState<{ _id: string; orderId: string; garmentType: string }[]>([]);
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
@@ -94,8 +94,8 @@ export default function DesignsPage() {
       ) : (
         <div className="space-y-4">
           {designs.map((design) => {
-            const order = design.order as Record<string, unknown> | null;
-            const versions = (design.versions as Record<string, unknown>[]) || [];
+            const order = design.order as any | null;
+            const versions = (design.versions as any[]) || [];
             return (
               <Card key={String(design._id)} padding="none">
                 <div className="px-5 py-4 border-b border-[var(--color-border-default)] flex items-center justify-between">
@@ -108,7 +108,7 @@ export default function DesignsPage() {
                 <div className="px-5 py-4">
                   <div className="space-y-3">
                     {versions.slice().reverse().map((v) => {
-                      const uploader = v.uploadedBy as Record<string, unknown> | null;
+                      const uploader = v.uploadedBy as any | null;
                       return (
                         <div key={String(v._id)} className="flex items-start gap-3 text-sm">
                           <div className="flex-shrink-0 w-12 h-12 bg-[var(--color-bg-muted)] rounded-[var(--radius-md)] flex items-center justify-center">

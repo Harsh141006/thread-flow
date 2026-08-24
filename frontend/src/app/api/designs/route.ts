@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const orderId = searchParams.get('order');
 
-    const query: Record<string, unknown> = {};
+    const query: any = {};
     if (orderId) query.order = orderId;
 
     const designs = await Design.find(query)

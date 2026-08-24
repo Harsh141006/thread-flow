@@ -75,7 +75,7 @@ function OrderWizard() {
 
   const calculateTotalQuantity = () => {
     if (isLehnga) return 1; // 1 Lehnga set per order usually, or we can make it complex. Let's assume 1.
-    return Object.values(sizes).reduce((sum, val) => sum + (Number(val) || 0), 0) as number;
+    return Object.values(sizes).reduce((sum, val) => Number(sum) + (Number(val) || 0), 0) as number;
   };
 
   const quantityNum = calculateTotalQuantity();

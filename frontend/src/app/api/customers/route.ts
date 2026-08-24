@@ -20,7 +20,7 @@ export async function GET(req: NextRequest) {
     const limit = parseInt(searchParams.get('limit') || '20');
     const search = searchParams.get('search') || '';
 
-    const query: Record<string, unknown> = {};
+    const query: any = {};
     if (search) {
       query.$or = [
         { name: { $regex: search, $options: 'i' } },

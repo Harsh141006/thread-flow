@@ -22,8 +22,8 @@ export default function CustomerDetailPage() {
   const params = useParams();
   const router = useRouter();
   const { toast } = useToast();
-  const [customer, setCustomer] = useState<Record<string, unknown> | null>(null);
-  const [orders, setOrders] = useState<Record<string, unknown>[]>([]);
+  const [customer, setCustomer] = useState<any | null>(null);
+  const [orders, setOrders] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [editOpen, setEditOpen] = useState(false);
   const [form, setForm] = useState({ name: '', company: '', email: '', phone: '', address: '', notes: '' });

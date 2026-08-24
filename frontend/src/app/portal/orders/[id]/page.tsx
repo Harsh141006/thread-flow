@@ -24,8 +24,8 @@ export default function PortalOrderDetailPage() {
   const { data: session } = useSession();
   const { toast } = useToast();
   
-  const [order, setOrder] = useState<Record<string, unknown> | null>(null);
-  const [design, setDesign] = useState<Record<string, unknown> | null>(null);
+  const [order, setOrder] = useState<any | null>(null);
+  const [design, setDesign] = useState<any | null>(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   
@@ -106,7 +106,7 @@ export default function PortalOrderDetailPage() {
   if (!order) return <p className="p-6 text-sm text-[var(--color-text-muted)]">Order not found</p>;
 
   const currentVersion = design?.versions 
-    ? (design.versions as Record<string, unknown>[]).find(v => v.version === design.currentVersion)
+    ? (design.versions as any[]).find(v => v.version === design.currentVersion)
     : null;
 
   return (

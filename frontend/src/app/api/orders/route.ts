@@ -32,7 +32,7 @@ export async function GET(req: NextRequest) {
 
     // If customer role, force filter to their own orders
     if (session?.user.role === 'customer') {
-      customer = session.user.customerId;
+      customer = session.user.customerId || null;
     }
     
     console.log('GET /api/orders called.', {
@@ -41,7 +41,7 @@ export async function GET(req: NextRequest) {
       finalCustomerFilter: customer
     });
 
-    const query: Record<string, unknown> = {};
+    const query: any = {};
     if (status) query.status = status;
     if (customer) query.customer = customer;
     if (search) {

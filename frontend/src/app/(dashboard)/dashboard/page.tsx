@@ -69,7 +69,7 @@ const PIE_COLORS = ['#6B7280', '#2563EB', '#D97706', '#4F46E5', '#F59E0B', '#7C3
 export default function DashboardPage() {
   const { data: session } = useSession();
   const [stats, setStats] = useState<IDashboardStats | null>(null);
-  const [recentOrders, setRecentOrders] = useState<Record<string, unknown>[]>([]);
+  const [recentOrders, setRecentOrders] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -233,8 +233,8 @@ export default function DashboardPage() {
                       {String(order.orderId)}
                     </td>
                     <td className="px-5 py-3 text-sm text-[var(--color-text-primary)]">
-                      {(order.customer as Record<string, unknown>)?.name
-                        ? String((order.customer as Record<string, unknown>).name)
+                      {(order.customer as any)?.name
+                        ? String((order.customer as any).name)
                         : '—'}
                     </td>
                     <td className="px-5 py-3">

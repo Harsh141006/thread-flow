@@ -92,7 +92,7 @@ export default function ProductionPage() {
 
   const handleStatusChange = async (id: string, newStatus: ProductionStatus) => {
     try {
-      const updateData: Record<string, unknown> = { status: newStatus };
+      const updateData: any = { status: newStatus };
       if (newStatus === 'running') updateData.startTime = new Date().toISOString();
       if (newStatus === 'done') updateData.endTime = new Date().toISOString();
 
