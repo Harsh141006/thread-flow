@@ -39,6 +39,7 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
 
   const navItems = [
     { label: 'Dashboard', href: '/portal', icon: <LayoutDashboard className="h-5 w-5" /> },
+    { label: 'Designs', href: '/portal/designs', icon: <Package className="h-5 w-5" /> },
     { label: 'Catalog', href: '/portal/catalog', icon: <Package className="h-5 w-5" /> },
     { label: 'My Orders', href: '/portal/orders', icon: <Package className="h-5 w-5" /> },
     { label: 'Consultations', href: '/portal/consultations', icon: <Bell className="h-5 w-5" /> },

@@ -1,30 +1,32 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { ArrowRight, Sparkles, Scissors, Palette, Gem } from 'lucide-react';
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-[var(--color-bg-primary)] text-[var(--color-text-primary)]">
+    <div className="min-h-screen bg-[var(--color-bg-primary)] text-[var(--color-text-primary)] font-sans selection:bg-[var(--color-accent)] selection:text-white">
       {/* Navigation */}
-      <nav className="fixed w-full bg-white/80 backdrop-blur-md z-50 border-b border-[var(--color-border-default)]">
+      <nav className="fixed w-full bg-white/70 backdrop-blur-xl z-50 border-b border-[var(--color-border-default)] shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-20 items-center">
             <div className="flex-shrink-0 flex items-center">
-              <h1 className="text-2xl font-bold tracking-tight text-[var(--color-sidebar-bg)]">
+              <h1 className="text-2xl font-black tracking-tight text-[var(--color-sidebar-bg)] flex items-center gap-2">
+                <Scissors className="h-6 w-6 text-[var(--color-accent)]" />
                 Thread<span className="text-[var(--color-accent)]">Flow</span>
               </h1>
             </div>
             <div className="flex items-center gap-4">
               <Link
                 href="/login"
-                className="text-sm font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors"
+                className="text-sm font-semibold text-[var(--color-sidebar-bg)] hover:text-[var(--color-accent)] transition-colors"
               >
-                Log in
+                Sign In
               </Link>
               <Link
                 href="/signup"
-                className="text-sm font-medium bg-[var(--color-sidebar-bg)] text-white px-5 py-2.5 rounded-full hover:bg-[var(--color-sidebar-hover)] transition-all shadow-md hover:shadow-lg"
+                className="text-sm font-semibold bg-[var(--color-sidebar-bg)] text-white px-6 py-2.5 rounded-full hover:bg-[var(--color-accent)] transition-all shadow-md hover:shadow-xl transform hover:-translate-y-0.5"
               >
-                Sign up
+                Get Started
               </Link>
             </div>
           </div>
@@ -32,44 +34,68 @@ export default function HomePage() {
       </nav>
 
       {/* Hero Section */}
-      <main className="pt-32 pb-16 sm:pt-40 sm:pb-24 lg:pb-32 overflow-hidden">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
-          <div className="lg:grid lg:grid-cols-12 lg:gap-16">
-            <div className="md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left lg:flex lg:items-center">
-              <div>
-                <h1 className="mt-4 text-4xl tracking-tight font-extrabold sm:mt-5 sm:leading-none lg:mt-6 lg:text-5xl xl:text-6xl text-[var(--color-sidebar-bg)]">
-                  Master the Art of
-                  <span className="text-[var(--color-accent)] block mt-1">Embroidery Management</span>
-                </h1>
-                <p className="mt-3 text-base text-[var(--color-text-secondary)] sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                  Digitize your embroidery workflow. Manage orders, digitize designs, coordinate production, and deliver premium quality—all from one luxurious platform.
-                </p>
-                <div className="mt-8 sm:max-w-lg sm:mx-auto sm:text-center lg:text-left lg:mx-0 flex flex-col sm:flex-row gap-4">
-                  <Link
-                    href="/signup"
-                    className="inline-flex items-center justify-center px-8 py-4 text-base font-medium rounded-full text-white bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] transition-all shadow-lg hover:shadow-xl w-full sm:w-auto"
-                  >
-                    Start Your Shop
-                  </Link>
-                  <Link
-                    href="/login"
-                    className="inline-flex items-center justify-center px-8 py-4 text-base font-medium rounded-full text-[var(--color-sidebar-bg)] bg-white border border-[var(--color-border-default)] hover:bg-[var(--color-bg-muted)] transition-all shadow-sm w-full sm:w-auto"
-                  >
-                    Client Portal
-                  </Link>
-                </div>
+      <main className="pt-32 pb-16 sm:pt-40 sm:pb-24 lg:pb-32 overflow-hidden relative">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] opacity-30 pointer-events-none">
+          <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-accent)] to-[#4169E1] blur-[120px] rounded-full mix-blend-multiply filter"></div>
+        </div>
+
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="lg:grid lg:grid-cols-12 lg:gap-16 items-center">
+            <div className="md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left text-center">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-accent-light)] text-[var(--color-accent-hover)] text-sm font-bold mb-6 shadow-sm border border-[var(--color-accent-muted)]">
+                <Sparkles className="h-4 w-4" />
+                <span>Premium Embroidery Management</span>
+              </div>
+              <h1 className="text-5xl tracking-tight font-black sm:leading-none lg:text-6xl xl:text-7xl text-[var(--color-sidebar-bg)]">
+                Crafting <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-accent)] to-[#D4AF37]">Excellence</span> <br/> in Every Stitch
+              </h1>
+              <p className="mt-6 text-lg text-[var(--color-text-secondary)] sm:text-xl lg:text-xl leading-relaxed max-w-lg mx-auto lg:mx-0">
+                Transform your tailoring and embroidery shop with digital precision. Manage bespoke orders, rich color palettes, and intricate designs in one elegant platform.
+              </p>
+              <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                <Link
+                  href="/signup"
+                  className="inline-flex items-center justify-center px-8 py-4 text-lg font-bold rounded-full text-white bg-[var(--color-sidebar-bg)] hover:bg-[var(--color-accent)] transition-all shadow-xl hover:shadow-2xl transform hover:-translate-y-1 w-full sm:w-auto group"
+                >
+                  Start Your Shop
+                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                </Link>
+                <Link
+                  href="/login"
+                  className="inline-flex items-center justify-center px-8 py-4 text-lg font-bold rounded-full text-[var(--color-sidebar-bg)] bg-white border-2 border-[var(--color-border-strong)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-all shadow-sm w-full sm:w-auto"
+                >
+                  Client Portal
+                </Link>
               </div>
             </div>
-            <div className="mt-16 sm:mt-24 lg:mt-0 lg:col-span-6">
-              <div className="relative mx-auto w-full rounded-2xl shadow-2xl lg:max-w-md overflow-hidden aspect-[4/3] group">
-                <Image
-                  src="/images/hero-embroidery.jpg"
-                  alt="Luxurious gold embroidery on navy fabric"
-                  fill
-                  className="object-cover transform group-hover:scale-105 transition-transform duration-700"
-                  priority
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+            
+            <div className="mt-16 sm:mt-24 lg:mt-0 lg:col-span-6 relative">
+              <div className="relative mx-auto w-full lg:max-w-lg aspect-square">
+                {/* Decorative background elements */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-[var(--color-accent)] to-[#1D4ED8] rounded-[3rem] rotate-6 opacity-20 scale-105 blur-xl"></div>
+                <div className="absolute inset-0 bg-[var(--color-sidebar-bg)] rounded-[3rem] -rotate-3 transition-transform duration-700 hover:rotate-0"></div>
+                
+                <div className="absolute inset-2 rounded-[2.5rem] overflow-hidden shadow-2xl group border-4 border-white/10">
+                  <Image
+                    src="/images/hero-embroidery.jpg"
+                    alt="Luxurious gold embroidery on navy fabric"
+                    fill
+                    className="object-cover transform group-hover:scale-110 transition-transform duration-1000"
+                    priority
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-sidebar-bg)]/80 via-transparent to-transparent opacity-60"></div>
+                  <div className="absolute bottom-8 left-8 right-8">
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/30">
+                        <Gem className="h-6 w-6 text-white" />
+                      </div>
+                      <div>
+                        <p className="text-white font-bold text-lg">Premium Gold Series</p>
+                        <p className="text-white/80 text-sm">Bespoke Navy Velvet</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -77,38 +103,68 @@ export default function HomePage() {
       </main>
 
       {/* Gallery Section */}
-      <section className="bg-white py-24 sm:py-32 border-t border-[var(--color-border-default)]">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="sm:text-center">
-            <h2 className="text-3xl font-extrabold tracking-tight text-[var(--color-sidebar-bg)] sm:text-4xl">
-              Precision in Every Thread
+      <section className="bg-[var(--color-sidebar-bg)] py-24 sm:py-32 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.8)_0,transparent_100%)]"></div>
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center max-w-3xl mx-auto">
+            <h2 className="text-4xl font-black tracking-tight text-white sm:text-5xl">
+              Endless Creative Possibilities
             </h2>
-            <p className="mt-4 max-w-2xl text-xl text-[var(--color-text-secondary)] sm:mx-auto">
-              Showcase your portfolio and manage intricate design files directly in your custom dashboard.
+            <p className="mt-6 text-xl text-slate-300">
+              From corporate logos to bespoke floral art. Equip your customers with an expansive catalog of designs and rich color palettes.
             </p>
           </div>
 
-          <div className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-2">
-            <div className="relative rounded-2xl overflow-hidden aspect-video shadow-lg group">
-              <Image
-                src="/images/hero-embroidery.jpg"
-                alt="Gold thread details"
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
-              <div className="absolute bottom-4 left-6 text-white font-medium text-lg drop-shadow-md">Premium Gold Series</div>
+          <div className="mt-20 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {/* Gallery Item 1 */}
+            <div className="relative rounded-3xl overflow-hidden aspect-square shadow-2xl group border border-white/10">
+              <Image src="/images/design-corporate.jpg" alt="Corporate Logo" fill className="object-cover group-hover:scale-110 group-hover:rotate-1 transition-all duration-700" />
+              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/10 transition-colors duration-500"></div>
+              <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/90 to-transparent translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                <p className="text-white font-bold text-lg">Corporate Sharp</p>
+                <p className="text-[var(--color-accent)] text-sm font-medium">Polo Shirts & Uniforms</p>
+              </div>
             </div>
-            <div className="relative rounded-2xl overflow-hidden aspect-video shadow-lg group">
-              <Image
-                src="/images/gallery-1.jpg"
-                alt="Colorful floral embroidery"
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
-              <div className="absolute bottom-4 left-6 text-white font-medium text-lg drop-shadow-md">Bespoke Florals</div>
+
+            {/* Gallery Item 2 */}
+            <div className="relative rounded-3xl overflow-hidden aspect-square shadow-2xl group border border-white/10 sm:mt-12">
+              <Image src="/images/design-monogram.jpg" alt="Elegant Monogram" fill className="object-cover group-hover:scale-110 group-hover:-rotate-1 transition-all duration-700" />
+              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/10 transition-colors duration-500"></div>
+              <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/90 to-transparent translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                <p className="text-white font-bold text-lg">Royal Monograms</p>
+                <p className="text-[var(--color-accent)] text-sm font-medium">Towels & Linens</p>
+              </div>
             </div>
+
+            {/* Gallery Item 3 */}
+            <div className="relative rounded-3xl overflow-hidden aspect-square shadow-2xl group border border-white/10">
+              <Image src="/images/design-abstract.jpg" alt="Abstract Geometric" fill className="object-cover group-hover:scale-110 group-hover:rotate-1 transition-all duration-700" />
+              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/10 transition-colors duration-500"></div>
+              <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/90 to-transparent translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                <p className="text-white font-bold text-lg">Vibrant Abstract</p>
+                <p className="text-[var(--color-accent)] text-sm font-medium">Denim Jackets</p>
+              </div>
+            </div>
+
+            {/* Gallery Item 4 */}
+            <div className="relative rounded-3xl overflow-hidden aspect-square shadow-2xl group border border-white/10 sm:mt-12">
+              <Image src="/images/design-patch.jpg" alt="Vintage Patch" fill className="object-cover group-hover:scale-110 group-hover:-rotate-1 transition-all duration-700" />
+              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/10 transition-colors duration-500"></div>
+              <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/90 to-transparent translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                <p className="text-white font-bold text-lg">Vintage Patches</p>
+                <p className="text-[var(--color-accent)] text-sm font-medium">Bags & Accessories</p>
+              </div>
+            </div>
+          </div>
+          
+          <div className="mt-20 text-center">
+             <Link
+                href="/login"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 text-lg font-bold rounded-full text-[var(--color-sidebar-bg)] bg-[var(--color-accent)] hover:bg-white hover:text-[var(--color-sidebar-bg)] transition-all shadow-xl hover:shadow-white/20 w-full sm:w-auto"
+              >
+                <Palette className="h-5 w-5" />
+                Explore Customer Portal
+              </Link>
           </div>
         </div>
       </section>

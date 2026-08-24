@@ -17,6 +17,17 @@ import { useToast } from '@/components/ui/Toast';
 import { formatDate, getStatusColor, capitalize, daysUntilDeadline } from '@/utils';
 import { ORDER_STATUSES, OrderStatus } from '@/types';
 
+const CLOTH_COLORS = [
+  { name: 'White', hex: '#FFFFFF' },
+  { name: 'Black', hex: '#111827' },
+  { name: 'Navy', hex: '#1E3A8A' },
+  { name: 'Ash Grey', hex: '#D1D5DB' },
+  { name: 'Red', hex: '#DC2626' },
+  { name: 'Royal Blue', hex: '#2563EB' },
+  { name: 'Forest Green', hex: '#059669' },
+  { name: 'Maroon', hex: '#7F1D1D' },
+];
+
 const THREAD_COLORS = [
   { name: 'Classic Black', hex: '#000000' },
   { name: 'Pure White', hex: '#FFFFFF' },
@@ -57,7 +68,7 @@ export default function OrdersPage() {
   const [form, setForm] = useState({
     customer: '', garmentType: '', quantity: '', sizes: '',
     embroideryPosition: '', designWidth: '', designHeight: '',
-    stitchesPerItem: '', threadColors: '', deadline: '', priority: 'normal', notes: '',
+    stitchesPerItem: '', threadColors: '', clothColor: '', deadline: '', priority: 'normal', notes: '',
   });
 
   const fetchOrders = useCallback(async () => {
@@ -103,13 +114,14 @@ export default function OrdersPage() {
           designHeight: Number(form.designHeight),
           stitchesPerItem: Number(form.stitchesPerItem) || 0,
           threadColors: form.threadColors.split(',').map((c) => c.trim()).filter(Boolean),
+          clothColor: form.clothColor,
         }),
       });
       const data = await res.json();
       if (data.success) {
         toast('success', `Order ${data.data.orderId} created`);
         setModalOpen(false);
-        setForm({ customer: '', garmentType: '', quantity: '', sizes: '', embroideryPosition: '', designWidth: '', designHeight: '', stitchesPerItem: '', threadColors: '', deadline: '', priority: 'normal', notes: '' });
+        setForm({ customer: '', garmentType: '', quantity: '', sizes: '', embroideryPosition: '', designWidth: '', designHeight: '', stitchesPerItem: '', threadColors: '', clothColor: '', deadline: '', priority: 'normal', notes: '' });
         fetchOrders();
       } else {
         toast('error', data.error);
@@ -260,6 +272,26 @@ export default function OrdersPage() {
             <Input label="Stitches per Item" type="number" value={form.stitchesPerItem} onChange={(e) => setForm({ ...form, stitchesPerItem: e.target.value })} hint="For risk calculation" />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="col-span-1 md:col-span-2 space-y-2 mb-2">
+              <label className="block text-sm font-medium text-[var(--color-text-primary)]">Cloth Color Guide</label>
+              <div className="flex flex-wrap gap-3 p-3 bg-[var(--color-bg-muted)] rounded-lg border border-[var(--color-border-default)]">
+                {CLOTH_COLORS.map(color => {
+                  const isSelected = form.clothColor === color.name;
+                  return (
+                    <button
+                      key={color.name}
+                      type="button"
+                      title={color.name}
+                      onClick={() => setForm({ ...form, clothColor: color.name })}
+                      className={`w-8 h-8 rounded-full border-2 transition-all ${isSelected ? 'border-[var(--color-accent)] scale-110 shadow-md' : 'border-[var(--color-border-strong)] hover:scale-105'} shadow-sm`}
+                      style={{ backgroundColor: color.hex }}
+                    />
+                  );
+                })}
+              </div>
+              <Input label="Selected Cloth Color" value={form.clothColor} onChange={(e) => setForm({ ...form, clothColor: e.target.value })} placeholder="Select from guide or type custom color" />
+            </div>
+            
             <div className="col-span-1 md:col-span-2 space-y-2">
               <label className="block text-sm font-medium text-[var(--color-text-primary)]">Thread Color Guide</label>
               <div className="flex flex-wrap gap-3 mb-3 p-3 bg-[var(--color-bg-muted)] rounded-lg border border-[var(--color-border-default)]">

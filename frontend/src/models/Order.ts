@@ -16,6 +16,7 @@ export interface OrderDocument extends Document {
   designHeight: number;
   stitchesPerItem: number;
   threadColors: string[];
+  clothColor?: string;
   deadline: Date;
   status: OrderStatus;
   priority: 'low' | 'normal' | 'high' | 'urgent';
@@ -43,6 +44,7 @@ const OrderSchema = new Schema<OrderDocument>(
     designHeight: { type: Number, required: true, min: 1 }, // mm
     stitchesPerItem: { type: Number, required: true, min: 0 },
     threadColors: [{ type: String, trim: true }],
+    clothColor: { type: String, trim: true },
     deadline: { type: Date, required: true },
     status: {
       type: String,

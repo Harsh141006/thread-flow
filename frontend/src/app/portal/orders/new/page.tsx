@@ -16,6 +16,32 @@ import { PageLoader } from '@/components/ui/Spinner';
 import { formatCurrency } from '@/utils';
 import { ArrowLeft, ArrowRight, CreditCard, Banknote, Smartphone, Upload, CheckCircle2, Image as ImageIcon, Wallet } from 'lucide-react';
 
+const CLOTH_COLORS = [
+  { name: 'White', hex: '#FFFFFF' },
+  { name: 'Black', hex: '#111827' },
+  { name: 'Navy', hex: '#1E3A8A' },
+  { name: 'Ash Grey', hex: '#D1D5DB' },
+  { name: 'Red', hex: '#DC2626' },
+  { name: 'Royal Blue', hex: '#2563EB' },
+  { name: 'Forest Green', hex: '#059669' },
+  { name: 'Maroon', hex: '#7F1D1D' },
+];
+
+const THREAD_COLORS = [
+  { name: 'Classic Black', hex: '#000000' },
+  { name: 'Pure White', hex: '#FFFFFF' },
+  { name: 'Navy Blue', hex: '#0A1128' },
+  { name: 'Royal Blue', hex: '#1D4ED8' },
+  { name: 'Forest Green', hex: '#065F46' },
+  { name: 'Ruby Red', hex: '#991B1B' },
+  { name: 'Gold', hex: '#D4AF37' },
+  { name: 'Silver', hex: '#C0C0C0' },
+  { name: 'Bronze', hex: '#CD7F32' },
+  { name: 'Burgundy', hex: '#800020' },
+  { name: 'Teal', hex: '#0F766E' },
+  { name: 'Plum', hex: '#701A75' },
+];
+
 function OrderWizard() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -38,6 +64,7 @@ function OrderWizard() {
     embroideryPosition: isLehnga ? 'All Over' : 'Left Chest',
     designWidth: isLehnga ? '500' : '80',
     designHeight: isLehnga ? '1000' : '80',
+    clothColor: '',
     threadColors: '',
     deadline: '',
     notes: '',
@@ -103,6 +130,7 @@ function OrderWizard() {
           sizes: sizes, // Now sending the JSON object
           designWidth: Number(form.designWidth),
           designHeight: Number(form.designHeight),
+          clothColor: form.clothColor,
           threadColors: form.threadColors.split(',').map(c => c.trim()).filter(Boolean),
           estimatedTotal,
           customerDesignPreview: designPreviewUrl,
@@ -191,15 +219,62 @@ function OrderWizard() {
                   { value: 'Border Only', label: 'Border Only' },
                 ]} 
               />
-              <Input label="Thread Colors (Optional)" value={form.threadColors} onChange={(e) => setForm({ ...form, threadColors: e.target.value })} placeholder="e.g. Gold Zari, Red, White" />
+              <Input label="Max Design Width (mm)" type="number" min="10" value={form.designWidth} onChange={(e) => setForm({ ...form, designWidth: e.target.value })} />
+            </div>
+
+            <div className="col-span-1 md:col-span-2 space-y-2 mb-2">
+              <label className="block text-sm font-medium text-[var(--color-text-primary)]">Cloth Color</label>
+              <div className="flex flex-wrap gap-3 p-3 bg-[var(--color-bg-muted)] rounded-lg border border-[var(--color-border-default)]">
+                {CLOTH_COLORS.map(color => {
+                  const isSelected = form.clothColor === color.name;
+                  return (
+                    <button
+                      key={color.name}
+                      type="button"
+                      title={color.name}
+                      onClick={() => setForm({ ...form, clothColor: color.name })}
+                      className={`w-8 h-8 rounded-full border-2 transition-all ${isSelected ? 'border-[var(--color-accent)] scale-110 shadow-md' : 'border-[var(--color-border-strong)] hover:scale-105'} shadow-sm`}
+                      style={{ backgroundColor: color.hex }}
+                    />
+                  );
+                })}
+              </div>
+              <Input label="Selected Cloth Color" value={form.clothColor} onChange={(e) => setForm({ ...form, clothColor: e.target.value })} placeholder="Select from guide or type custom color" />
+            </div>
+
+            <div className="col-span-1 md:col-span-2 space-y-2">
+              <label className="block text-sm font-medium text-[var(--color-text-primary)]">Thread Colors</label>
+              <div className="flex flex-wrap gap-3 mb-3 p-3 bg-[var(--color-bg-muted)] rounded-lg border border-[var(--color-border-default)]">
+                {THREAD_COLORS.map(color => {
+                  const currentColors = form.threadColors.split(',').map(c => c.trim()).filter(Boolean);
+                  const isSelected = currentColors.includes(color.name);
+                  return (
+                    <button
+                      key={color.name}
+                      type="button"
+                      title={color.name}
+                      onClick={() => {
+                        let current = [...currentColors];
+                        if (isSelected) {
+                          current = current.filter(c => c !== color.name);
+                        } else {
+                          current.push(color.name);
+                        }
+                        setForm({ ...form, threadColors: current.join(', ') });
+                      }}
+                      className={`w-8 h-8 rounded-full border-2 transition-all ${isSelected ? 'border-[var(--color-accent)] scale-110 shadow-md' : 'border-[var(--color-border-strong)] hover:scale-105'} shadow-sm`}
+                      style={{ backgroundColor: color.hex }}
+                    />
+                  );
+                })}
+              </div>
+              <Input label="Selected Thread Colors" value={form.threadColors} onChange={(e) => setForm({ ...form, threadColors: e.target.value })} placeholder="Select from guide or type custom colors" />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Input label="Max Design Width (mm)" type="number" min="10" value={form.designWidth} onChange={(e) => setForm({ ...form, designWidth: e.target.value })} />
               <Input label="Max Design Height (mm)" type="number" min="10" value={form.designHeight} onChange={(e) => setForm({ ...form, designHeight: e.target.value })} />
+              <Input label="Requested Delivery Date" type="date" value={form.deadline} onChange={(e) => setForm({ ...form, deadline: e.target.value })} hint="Standard time is 14 days" />
             </div>
-            
-            <Input label="Requested Delivery Date" type="date" value={form.deadline} onChange={(e) => setForm({ ...form, deadline: e.target.value })} hint="Standard time is 14 days (30 days for Lehngas)" />
             
             <div className="flex justify-end pt-4 border-t border-[var(--color-border-default)]">
               <Button onClick={() => validateStep1() && setStep(2)} rightIcon={<ArrowRight className="h-4 w-4" />}>
