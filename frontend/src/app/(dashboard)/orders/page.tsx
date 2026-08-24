@@ -158,6 +158,13 @@ export default function OrdersPage() {
     )},
     { key: 'customer', label: 'Customer', render: (o: OrderRow) => o.customer?.name || '—' },
     { key: 'garmentType', label: 'Garment', className: 'hidden md:table-cell' },
+    { key: 'colors', label: 'Colors', className: 'hidden lg:table-cell', render: (o: OrderRow) => (
+      <div className="flex flex-col gap-1 text-xs">
+        {o.clothColor && <span><span className="text-[var(--color-text-muted)]">Cloth:</span> {o.clothColor as string}</span>}
+        {(o.threadColors as string[])?.length > 0 && <span><span className="text-[var(--color-text-muted)]">Threads:</span> {(o.threadColors as string[]).join(', ')}</span>}
+        {!o.clothColor && !(o.threadColors as string[])?.length && <span className="text-[var(--color-text-muted)]">—</span>}
+      </div>
+    )},
     { key: 'quantity', label: 'Qty', className: 'hidden md:table-cell' },
     { key: 'status', label: 'Status', render: (o: OrderRow) => (
       <Badge className={getStatusColor(o.status as OrderStatus)}>{capitalize(o.status)}</Badge>

@@ -9,44 +9,36 @@ import Image from 'next/image';
 import { Palette, Download, Heart } from 'lucide-react';
 import Button from '@/components/ui/Button';
 
-const DESIGNS = [
-  {
-    id: 1,
-    title: 'Corporate Sharp Logo',
-    category: 'Corporate',
-    image: '/images/design-corporate.jpg',
-    description: 'Crisp, professional logo embroidery suited for polo shirts and uniforms.',
-    threadCount: '5,400',
-    colors: 3
-  },
-  {
-    id: 2,
-    title: 'Royal Gold Monogram',
-    category: 'Bespoke',
-    image: '/images/design-monogram.jpg',
-    description: 'Elegant monogram for luxury towels, robes, and premium linens.',
-    threadCount: '12,000',
-    colors: 1
-  },
-  {
-    id: 3,
-    title: 'Vibrant Geometric Abstract',
-    category: 'Custom Art',
-    image: '/images/design-abstract.jpg',
-    description: 'Highly detailed geometric pattern with vibrant colors on denim.',
-    threadCount: '24,500',
-    colors: 8
-  },
-  {
-    id: 4,
-    title: 'Vintage Sierra Patch',
-    category: 'Patches',
-    image: '/images/design-patch.jpg',
-    description: 'Detailed mountain landscape patch, perfect for bags and outdoor gear.',
-    threadCount: '18,200',
-    colors: 6
-  }
+const CATEGORIES = ['Corporate', 'Bespoke', 'Custom Art', 'Patches', 'Floral', 'Minimalist', 'Traditional', 'Modern'];
+const TITLES = [
+  'Corporate Sharp Logo', 'Royal Gold Monogram', 'Vibrant Geometric Abstract', 'Vintage Sierra Patch',
+  'Rose Garden Burst', 'Minimalist Line Art', 'Classic Crest', 'Neon Tiger Roar',
+  'Subtle Initial', 'Bold Varsity Letter', 'Intricate Mandala', 'Watercolor Butterfly',
+  'Heritage Shield', 'Modern Typographic', 'Gothic Lettering', 'Tropical Leaf',
+  'Sunburst Motif', 'Abstract Brushstroke', 'Regal Crown', 'Wildflower Bouquet',
+  'Geometric Wolf', 'Nautical Anchor', 'Vintage Car Silhouette', 'Art Deco Pattern',
+  'Cosmic Galaxy Motif', 'Tribal Band', 'Delicate Fern', 'Retro Arcade Pixel'
 ];
+
+const DESIGNS = TITLES.map((title, index) => {
+  // Use our original generated images for the first 4, then use picsum for the rest
+  const originalImages = [
+    '/images/design-corporate.jpg',
+    '/images/design-monogram.jpg',
+    '/images/design-abstract.jpg',
+    '/images/design-patch.jpg'
+  ];
+  
+  return {
+    id: index + 1,
+    title: title,
+    category: CATEGORIES[index % CATEGORIES.length],
+    image: index < 4 ? originalImages[index] : `https://picsum.photos/seed/design${index}/600/600`,
+    description: `A beautifully crafted ${CATEGORIES[index % CATEGORIES.length].toLowerCase()} design, meticulously digitized for premium embroidery results.`,
+    threadCount: `${(Math.floor(Math.random() * 20) + 5)},${Math.floor(Math.random() * 900) + 100}`,
+    colors: Math.floor(Math.random() * 12) + 1
+  };
+});
 
 export default function DesignsPage() {
   return (

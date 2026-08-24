@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, Sparkles, Scissors, Palette, Gem } from 'lucide-react';
+import { ArrowRight, Sparkles, Scissors, Palette, Gem, CheckCircle2, Clock, ShieldCheck, Zap, Star } from 'lucide-react';
 
 export default function HomePage() {
   return (
@@ -102,6 +102,55 @@ export default function HomePage() {
         </div>
       </main>
 
+      {/* Features Section */}
+      <section className="bg-white py-24 sm:py-32 relative">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-sm font-bold text-[var(--color-accent)] tracking-widest uppercase mb-3">Why Choose Us</h2>
+            <h3 className="text-4xl font-black tracking-tight text-[var(--color-text-primary)] sm:text-5xl">
+              Elevating the Craft of Embroidery
+            </h3>
+            <p className="mt-6 text-lg text-[var(--color-text-secondary)]">
+              Our digital platform seamlessly connects the timeless art of embroidery with modern efficiency.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="p-8 rounded-3xl bg-[var(--color-bg-muted)] hover:bg-[var(--color-bg-hover)] transition-colors group">
+              <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-sm mb-6 group-hover:scale-110 transition-transform">
+                <Palette className="w-7 h-7 text-[var(--color-accent)]" />
+              </div>
+              <h4 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">Vibrant Color Matching</h4>
+              <p className="text-[var(--color-text-secondary)]">Precise thread color selection ensuring your brand colors are accurately represented.</p>
+            </div>
+            
+            <div className="p-8 rounded-3xl bg-[var(--color-bg-muted)] hover:bg-[var(--color-bg-hover)] transition-colors group">
+              <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-sm mb-6 group-hover:scale-110 transition-transform">
+                <Zap className="w-7 h-7 text-[var(--color-accent)]" />
+              </div>
+              <h4 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">Rapid Digitization</h4>
+              <p className="text-[var(--color-text-secondary)]">Fast turnaround times converting your digital artwork into high-quality stitch files.</p>
+            </div>
+
+            <div className="p-8 rounded-3xl bg-[var(--color-bg-muted)] hover:bg-[var(--color-bg-hover)] transition-colors group">
+              <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-sm mb-6 group-hover:scale-110 transition-transform">
+                <ShieldCheck className="w-7 h-7 text-[var(--color-accent)]" />
+              </div>
+              <h4 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">Premium Quality</h4>
+              <p className="text-[var(--color-text-secondary)]">Multi-stage quality control ensuring zero skipped stitches and perfect tension.</p>
+            </div>
+
+            <div className="p-8 rounded-3xl bg-[var(--color-bg-muted)] hover:bg-[var(--color-bg-hover)] transition-colors group">
+              <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-sm mb-6 group-hover:scale-110 transition-transform">
+                <Clock className="w-7 h-7 text-[var(--color-accent)]" />
+              </div>
+              <h4 className="text-xl font-bold text-[var(--color-text-primary)] mb-3">Real-time Tracking</h4>
+              <p className="text-[var(--color-text-secondary)]">Monitor your order status live from the client portal, from design to dispatch.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Gallery Section */}
       <section className="bg-[var(--color-sidebar-bg)] py-24 sm:py-32 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.8)_0,transparent_100%)]"></div>
@@ -165,6 +214,66 @@ export default function HomePage() {
                 <Palette className="h-5 w-5" />
                 Explore Customer Portal
               </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="bg-white py-24 sm:py-32">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-4xl font-black tracking-tight text-[var(--color-text-primary)] sm:text-5xl">
+              Trusted by Top Brands
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="p-8 rounded-3xl border border-[var(--color-border-default)] shadow-sm hover:shadow-xl transition-shadow">
+              <div className="flex gap-1 text-[var(--color-accent)] mb-6">
+                {[1,2,3,4,5].map(i => <Star key={i} className="w-5 h-5 fill-current" />)}
+              </div>
+              <p className="text-lg text-[var(--color-text-secondary)] mb-6 italic">
+                "ThreadFlow completely transformed how we order our corporate uniforms. The digital approval process and color matching is flawless."
+              </p>
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-slate-200" />
+                <div>
+                  <h4 className="font-bold text-[var(--color-text-primary)]">Sarah Jenkins</h4>
+                  <p className="text-sm text-[var(--color-text-muted)]">VP Operations, TechCorp</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-8 rounded-3xl border border-[var(--color-border-default)] shadow-sm hover:shadow-xl transition-shadow">
+              <div className="flex gap-1 text-[var(--color-accent)] mb-6">
+                {[1,2,3,4,5].map(i => <Star key={i} className="w-5 h-5 fill-current" />)}
+              </div>
+              <p className="text-lg text-[var(--color-text-secondary)] mb-6 italic">
+                "The bespoke quality is unmatched. Being able to choose the exact thread and cloth colors directly from the portal saved us hours of back-and-forth."
+              </p>
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-slate-200" />
+                <div>
+                  <h4 className="font-bold text-[var(--color-text-primary)]">Michael Chen</h4>
+                  <p className="text-sm text-[var(--color-text-muted)]">Founder, Apex Apparel</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-8 rounded-3xl border border-[var(--color-border-default)] shadow-sm hover:shadow-xl transition-shadow bg-[var(--color-sidebar-bg)] text-white">
+              <div className="flex gap-1 text-[var(--color-accent)] mb-6">
+                {[1,2,3,4,5].map(i => <Star key={i} className="w-5 h-5 fill-current" />)}
+              </div>
+              <p className="text-lg text-slate-300 mb-6 italic">
+                "We needed 500 embroidered jackets for a major event. Not only did they deliver ahead of schedule, but every single stitch was perfect."
+              </p>
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-slate-700" />
+                <div>
+                  <h4 className="font-bold text-white">Elena Rodriguez</h4>
+                  <p className="text-sm text-slate-400">Event Director, Global Summit</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
