@@ -17,6 +17,21 @@ import { useToast } from '@/components/ui/Toast';
 import { formatDate, getStatusColor, capitalize, daysUntilDeadline } from '@/utils';
 import { ORDER_STATUSES, OrderStatus } from '@/types';
 
+const THREAD_COLORS = [
+  { name: 'Classic Black', hex: '#000000' },
+  { name: 'Pure White', hex: '#FFFFFF' },
+  { name: 'Navy Blue', hex: '#0A1128' },
+  { name: 'Royal Blue', hex: '#1D4ED8' },
+  { name: 'Forest Green', hex: '#065F46' },
+  { name: 'Ruby Red', hex: '#991B1B' },
+  { name: 'Gold', hex: '#D4AF37' },
+  { name: 'Silver', hex: '#C0C0C0' },
+  { name: 'Bronze', hex: '#CD7F32' },
+  { name: 'Burgundy', hex: '#800020' },
+  { name: 'Teal', hex: '#0F766E' },
+  { name: 'Plum', hex: '#701A75' },
+];
+
 interface OrderRow {
   _id: string;
   orderId: string;
@@ -245,7 +260,34 @@ export default function OrdersPage() {
             <Input label="Stitches per Item" type="number" value={form.stitchesPerItem} onChange={(e) => setForm({ ...form, stitchesPerItem: e.target.value })} hint="For risk calculation" />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Input label="Thread Colors" value={form.threadColors} onChange={(e) => setForm({ ...form, threadColors: e.target.value })} placeholder="Red, Gold, Navy (comma-separated)" />
+            <div className="col-span-1 md:col-span-2 space-y-2">
+              <label className="block text-sm font-medium text-[var(--color-text-primary)]">Thread Color Guide</label>
+              <div className="flex flex-wrap gap-3 mb-3 p-3 bg-[var(--color-bg-muted)] rounded-lg border border-[var(--color-border-default)]">
+                {THREAD_COLORS.map(color => {
+                  const currentColors = form.threadColors.split(',').map(c => c.trim()).filter(Boolean);
+                  const isSelected = currentColors.includes(color.name);
+                  return (
+                    <button
+                      key={color.name}
+                      type="button"
+                      title={color.name}
+                      onClick={() => {
+                        let current = [...currentColors];
+                        if (isSelected) {
+                          current = current.filter(c => c !== color.name);
+                        } else {
+                          current.push(color.name);
+                        }
+                        setForm({ ...form, threadColors: current.join(', ') });
+                      }}
+                      className={`w-8 h-8 rounded-full border-2 transition-all ${isSelected ? 'border-[var(--color-accent)] scale-110 shadow-md' : 'border-[var(--color-border-strong)] hover:scale-105'} shadow-sm`}
+                      style={{ backgroundColor: color.hex }}
+                    />
+                  );
+                })}
+              </div>
+              <Input label="Selected Colors" value={form.threadColors} onChange={(e) => setForm({ ...form, threadColors: e.target.value })} placeholder="Select from guide or type custom colors" />
+            </div>
             <Input label="Deadline" type="date" required value={form.deadline} onChange={(e) => setForm({ ...form, deadline: e.target.value })} />
           </div>
           <Select
