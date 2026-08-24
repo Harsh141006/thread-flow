@@ -102,15 +102,18 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
 
     // Trigger Notification if dispatched
     if (body.status === 'dispatched' && existingOrder.status !== 'dispatched') {
-      const user = await User.findOne({ customerId: updatedOrder.customer._id });
-      if (user) {
-        await Notification.create({
-          user: user._id,
-          title: 'Order Dispatched',
-          message: `Great news! Your order ${updatedOrder.orderId} has been dispatched.`,
-          type: 'success',
-          link: `/portal/orders/${updatedOrder._id}`
-        });
+      const customerId = updatedOrder.customer?._id || updatedOrder.customer;
+      if (customerId) {
+        const user = await User.findOne({ customerId });
+        if (user) {
+          await Notification.create({
+            user: user._id,
+            title: 'Order Dispatched',
+            message: `Great news! Your order ${updatedOrder.orderId} has been dispatched.`,
+            type: 'success',
+            link: `/portal/orders/${updatedOrder._id}`
+          });
+        }
       }
     }
 
