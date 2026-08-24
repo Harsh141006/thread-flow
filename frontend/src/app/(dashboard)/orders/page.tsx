@@ -52,6 +52,8 @@ interface OrderRow {
   status: string;
   priority: string;
   deadline: string;
+  clothColor?: string;
+  threadColors?: string[];
   [key: string]: unknown;
 }
 
@@ -160,9 +162,9 @@ export default function OrdersPage() {
     { key: 'garmentType', label: 'Garment', className: 'hidden md:table-cell' },
     { key: 'colors', label: 'Colors', className: 'hidden lg:table-cell', render: (o: OrderRow) => (
       <div className="flex flex-col gap-1 text-xs">
-        {o.clothColor && <span><span className="text-[var(--color-text-muted)]">Cloth:</span> {o.clothColor as string}</span>}
-        {(o.threadColors as string[])?.length > 0 && <span><span className="text-[var(--color-text-muted)]">Threads:</span> {(o.threadColors as string[]).join(', ')}</span>}
-        {!o.clothColor && !(o.threadColors as string[])?.length && <span className="text-[var(--color-text-muted)]">—</span>}
+        {!!o.clothColor && <span><span className="text-[var(--color-text-muted)]">Cloth:</span> {o.clothColor}</span>}
+        {!!o.threadColors?.length && <span><span className="text-[var(--color-text-muted)]">Threads:</span> {o.threadColors.join(', ')}</span>}
+        {!o.clothColor && !o.threadColors?.length && <span className="text-[var(--color-text-muted)]">—</span>}
       </div>
     )},
     { key: 'quantity', label: 'Qty', className: 'hidden md:table-cell' },
