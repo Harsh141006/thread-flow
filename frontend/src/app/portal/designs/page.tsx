@@ -17,8 +17,17 @@ const TITLES = [
   'Heritage Shield', 'Modern Typographic', 'Gothic Lettering', 'Tropical Leaf',
   'Sunburst Motif', 'Abstract Brushstroke', 'Regal Crown', 'Wildflower Bouquet',
   'Geometric Wolf', 'Nautical Anchor', 'Vintage Car Silhouette', 'Art Deco Pattern',
-  'Cosmic Galaxy Motif', 'Tribal Band', 'Delicate Fern', 'Retro Arcade Pixel'
+  'Cosmic Galaxy Motif', 'Tribal Band', 'Delicate Fern', 'Retro Arcade Pixel',
+  'Bridal Zari Lehnga', 'Velvet Gold Lehnga Embroidery', 'Pastel Resham Saari', 'Royal Zardosi Motif',
+  'Heavy Border Saari', 'Floral Sequins Lehnga', 'Kundan Work Border', 'Traditional Gota Patti Lehnga',
+  'Bridal Red Lehnga Motif', 'Silk Saari Pallu Art', 'Banarasi Brocade Style', 'Chikankari Inspired Saari'
 ];
+
+const getCategory = (title: string, defaultCat: string) => {
+  if (title.toLowerCase().includes('lehnga')) return 'Lehnga';
+  if (title.toLowerCase().includes('saari')) return 'Saari';
+  return defaultCat;
+};
 
 const DESIGNS = TITLES.map((title, index) => {
   // Use our original generated images for the first 4, then use picsum for the rest
@@ -32,9 +41,9 @@ const DESIGNS = TITLES.map((title, index) => {
   return {
     id: index + 1,
     title: title,
-    category: CATEGORIES[index % CATEGORIES.length],
+    category: getCategory(title, CATEGORIES[index % CATEGORIES.length]),
     image: index < 4 ? originalImages[index] : `https://picsum.photos/seed/design${index}/600/600`,
-    description: `A beautifully crafted ${CATEGORIES[index % CATEGORIES.length].toLowerCase()} design, meticulously digitized for premium embroidery results.`,
+    description: `A beautifully crafted ${getCategory(title, CATEGORIES[index % CATEGORIES.length]).toLowerCase()} design, meticulously digitized for premium embroidery results.`,
     threadCount: `${(Math.floor(Math.random() * 20) + 5)},${Math.floor(Math.random() * 900) + 100}`,
     colors: Math.floor(Math.random() * 12) + 1
   };
