@@ -102,7 +102,7 @@ export async function POST(req: NextRequest) {
       customer, garmentType, quantity, sizes, embroideryPosition,
       designWidth, designHeight, stitchesPerItem, threadColors,
       deadline, priority, notes, estimatedTotal, paymentMethod,
-      customerDesignPreview
+      customerDesignPreview, shippingAddress, contactPhone
     } = body;
 
     // If role is customer, enforce their own customer ID
@@ -143,6 +143,8 @@ export async function POST(req: NextRequest) {
         status: 'draft',
         customerDesignPreview,
         paymentMethod,
+        shippingAddress,
+        contactPhone,
         createdBy: session!.user.id,
       }], { session: sessionTransaction });
 

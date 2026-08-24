@@ -24,6 +24,8 @@ export interface OrderDocument extends Document {
   designFile?: string;
   customerDesignPreview?: string;
   paymentMethod?: string;
+  shippingAddress?: string;
+  contactPhone?: string;
   createdBy: mongoose.Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;
@@ -57,6 +59,8 @@ const OrderSchema = new Schema<OrderDocument>(
     designFile: { type: String }, // For admin uploading technical design
     customerDesignPreview: { type: String }, // Base64 image uploaded by customer
     paymentMethod: { type: String, trim: true },
+    shippingAddress: { type: String, trim: true },
+    contactPhone: { type: String, trim: true },
     createdBy: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   },
   { timestamps: true }

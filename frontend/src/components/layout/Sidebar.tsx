@@ -52,6 +52,12 @@ const navItems: NavItem[] = [
     roles: ['admin', 'sales', 'designer', 'production', 'qc'],
   },
   {
+    label: 'Consultations',
+    href: '/consultations',
+    icon: <MessageSquare className="h-[18px] w-[18px]" />,
+    roles: ['admin', 'sales'],
+  },
+  {
     label: 'Dispatched',
     href: '/dispatched',
     icon: <Truck className="h-[18px] w-[18px]" />,

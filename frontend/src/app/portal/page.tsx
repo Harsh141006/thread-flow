@@ -53,13 +53,21 @@ export default function PortalDashboard() {
       title={`Welcome back, ${session?.user?.name?.split(' ')[0] || 'Customer'}`}
       description="View your orders and pending approvals"
       action={
-        <button 
-          onClick={() => router.push('/portal/catalog')}
-          className="flex items-center gap-2 px-4 py-2 bg-[var(--color-accent)] text-white rounded-[var(--radius-md)] text-sm font-medium hover:bg-[var(--color-accent)]/90 transition-colors"
-        >
-          <Package className="h-4 w-4" />
-          Start New Order
-        </button>
+        <div className="flex gap-3">
+          <button 
+            onClick={() => router.push('/portal/consultations')}
+            className="flex items-center gap-2 px-4 py-2 border border-[var(--color-accent)] text-[var(--color-accent)] rounded-[var(--radius-md)] text-sm font-medium hover:bg-[var(--color-accent-light)]/20 transition-colors"
+          >
+            Consult with Expert
+          </button>
+          <button 
+            onClick={() => router.push('/portal/catalog')}
+            className="flex items-center gap-2 px-4 py-2 bg-[var(--color-accent)] text-white rounded-[var(--radius-md)] text-sm font-medium hover:bg-[var(--color-accent)]/90 transition-colors"
+          >
+            <Package className="h-4 w-4" />
+            Start New Order
+          </button>
+        </div>
       }
     >
       {/* Quick Stats */}

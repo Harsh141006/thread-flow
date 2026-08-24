@@ -103,7 +103,25 @@ export interface IOrder {
   notes?: string;
   designFile?: string; // Cloudinary URL
   paymentMethod?: string;
+  shippingAddress?: string;
+  contactPhone?: string;
   createdBy: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+// === Consultation ===
+export interface IConsultationMessage {
+  sender: 'customer' | 'admin';
+  text: string;
+  createdAt: Date;
+}
+
+export interface IConsultation {
+  _id: string;
+  customer: string | ICustomer;
+  status: 'open' | 'resolved';
+  messages: IConsultationMessage[];
   createdAt: Date;
   updatedAt: Date;
 }

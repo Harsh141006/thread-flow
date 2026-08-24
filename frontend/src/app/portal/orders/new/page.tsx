@@ -42,6 +42,8 @@ function OrderWizard() {
     deadline: '',
     notes: '',
     paymentMethod: 'Credit Card',
+    shippingAddress: '',
+    contactPhone: '',
   });
 
   // Step 2: Design Upload
@@ -105,6 +107,8 @@ function OrderWizard() {
           estimatedTotal,
           customerDesignPreview: designPreviewUrl,
           priority: 'normal',
+          shippingAddress: form.shippingAddress,
+          contactPhone: form.contactPhone,
         }),
       });
       
@@ -269,6 +273,25 @@ function OrderWizard() {
                   <span className="text-[var(--color-accent)]">{formatCurrency(estimatedTotal)}</span>
                 </div>
               </div>
+            </div>
+
+            <h4 className="text-sm font-medium text-[var(--color-text-primary)] mb-3">Shipping & Contact Details</h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <Textarea 
+                label="Full Shipping Address" 
+                required 
+                value={form.shippingAddress} 
+                onChange={(e) => setForm({ ...form, shippingAddress: e.target.value })} 
+                placeholder="123 Street Name, City, State, ZIP" 
+              />
+              <Input 
+                label="Contact Phone Number" 
+                required 
+                type="tel"
+                value={form.contactPhone} 
+                onChange={(e) => setForm({ ...form, contactPhone: e.target.value })} 
+                placeholder="+91 98765 43210" 
+              />
             </div>
 
             <h4 className="text-sm font-medium text-[var(--color-text-primary)] mb-3">Select Payment Method</h4>
