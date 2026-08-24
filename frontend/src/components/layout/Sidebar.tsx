@@ -18,6 +18,7 @@ import {
   CreditCard,
   Warehouse,
   Truck,
+  MessageSquare,
   Settings,
   ChevronLeft,
   ChevronRight,

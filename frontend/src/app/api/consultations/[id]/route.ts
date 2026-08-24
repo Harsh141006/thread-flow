@@ -16,7 +16,11 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
       return NextResponse.json({ success: false, error: 'Not found' }, { status: 404 });
     }
 
-    if (session?.user.role === 'customer' && consultation.customer._id.toString() !== session.user.customerId) {
+    const customerId = typeof consultation.customer === 'object' && consultation.customer !== null 
+      ? (consultation.customer as any)._id?.toString() 
+      : consultation.customer?.toString();
+
+    if (session?.user.role === 'customer' && customerId !== session.user.customerId) {
       return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 403 });
     }
 
@@ -40,7 +44,11 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
       return NextResponse.json({ success: false, error: 'Not found' }, { status: 404 });
     }
 
-    if (session?.user.role === 'customer' && consultation.customer.toString() !== session.user.customerId) {
+    const customerId = typeof consultation.customer === 'object' && consultation.customer !== null 
+      ? (consultation.customer as any)._id?.toString() 
+      : consultation.customer?.toString();
+
+    if (session?.user.role === 'customer' && customerId !== session.user.customerId) {
       return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 403 });
     }
 

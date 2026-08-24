@@ -83,23 +83,25 @@ export default function ConsultationsPage() {
           </div>
         ) : (
           consultations.map((c) => (
-            <Card key={c._id} className="cursor-pointer hover:border-[var(--color-accent)] transition-colors" onClick={() => router.push(`/portal/consultations/${c._id}`)}>
-              <div className="flex justify-between items-start mb-4">
-                <div className="flex items-center gap-2 text-[var(--color-text-primary)] font-medium">
-                  <MessageSquare className="h-5 w-5 text-[var(--color-accent)]" />
-                  Consultation
+            <div key={c._id} onClick={() => router.push(`/portal/consultations/${c._id}`)} className="cursor-pointer group">
+              <Card className="group-hover:border-[var(--color-accent)] transition-colors h-full">
+                <div className="flex justify-between items-start mb-4">
+                  <div className="flex items-center gap-2 text-[var(--color-text-primary)] font-medium">
+                    <MessageSquare className="h-5 w-5 text-[var(--color-accent)]" />
+                    Consultation
+                  </div>
+                  <Badge className={c.status === 'open' ? 'bg-[var(--color-warning-light)] text-[var(--color-warning)]' : 'bg-[var(--color-success-light)] text-[var(--color-success)]'}>
+                    {c.status.toUpperCase()}
+                  </Badge>
                 </div>
-                <Badge className={c.status === 'open' ? 'bg-[var(--color-warning-light)] text-[var(--color-warning)]' : 'bg-[var(--color-success-light)] text-[var(--color-success)]'}>
-                  {c.status.toUpperCase()}
-                </Badge>
-              </div>
-              <p className="text-sm text-[var(--color-text-secondary)] line-clamp-2">
-                {c.messages[0]?.text || 'No messages yet'}
-              </p>
-              <div className="text-xs text-[var(--color-text-muted)] mt-4">
-                Last updated: {new Date(c.updatedAt).toLocaleDateString()}
-              </div>
-            </Card>
+                <p className="text-sm text-[var(--color-text-secondary)] line-clamp-2">
+                  {c.messages[0]?.text || 'No messages yet'}
+                </p>
+                <div className="text-xs text-[var(--color-text-muted)] mt-4">
+                  Last updated: {new Date(c.updatedAt).toLocaleDateString()}
+                </div>
+              </Card>
+            </div>
           ))
         )}
       </div>

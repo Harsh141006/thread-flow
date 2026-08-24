@@ -11,7 +11,7 @@ export async function GET(req: NextRequest) {
     await dbConnect();
     const { searchParams } = new URL(req.url);
     const status = searchParams.get('status');
-    let customer = searchParams.get('customer');
+    let customer: string | null | undefined = searchParams.get('customer');
 
     if (session?.user.role === 'customer') {
       customer = session.user.customerId;
