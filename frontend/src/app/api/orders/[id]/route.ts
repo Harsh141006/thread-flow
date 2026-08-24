@@ -18,6 +18,9 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
 
   try {
     await dbConnect();
+    // Prevent Next.js from tree-shaking the Customer model
+    if (!Customer.modelName) throw new Error('Customer model missing');
+
     const { id } = await params;
 
     const order = await Order.findById(id)
@@ -57,6 +60,9 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
 
   try {
     await dbConnect();
+    // Prevent Next.js from tree-shaking the Customer model
+    if (!Customer.modelName) throw new Error('Customer model missing');
+    
     const { id } = await params;
     const body = await req.json();
 

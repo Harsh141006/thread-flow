@@ -21,6 +21,8 @@ export async function GET(req: NextRequest) {
 
   try {
     await dbConnect();
+    // Prevent Next.js from tree-shaking the Customer model
+    if (!Customer.modelName) throw new Error('Customer model missing');
 
     const { searchParams } = new URL(req.url);
     const page = parseInt(searchParams.get('page') || '1');
