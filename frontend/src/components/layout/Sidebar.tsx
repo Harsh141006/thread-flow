@@ -17,6 +17,7 @@ import {
   ShieldCheck,
   CreditCard,
   Warehouse,
+  Truck,
   Settings,
   ChevronLeft,
   ChevronRight,
@@ -49,6 +50,12 @@ const navItems: NavItem[] = [
     href: '/orders',
     icon: <ClipboardList className="h-[18px] w-[18px]" />,
     roles: ['admin', 'sales', 'designer', 'production', 'qc'],
+  },
+  {
+    label: 'Dispatched',
+    href: '/dispatched',
+    icon: <Truck className="h-[18px] w-[18px]" />,
+    roles: ['admin', 'sales'],
   },
   {
     label: 'Designs',

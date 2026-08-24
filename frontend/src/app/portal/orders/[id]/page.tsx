@@ -137,6 +137,9 @@ export default function PortalOrderDetailPage() {
               <div><span className="text-[var(--color-text-secondary)]">Position:</span> <span className="ml-2">{String(order.embroideryPosition)}</span></div>
               <div><span className="text-[var(--color-text-secondary)]">Design Size:</span> <span className="ml-2">{String(order.designWidth)}x{String(order.designHeight)} mm</span></div>
               <div><span className="text-[var(--color-text-secondary)]">Deadline:</span> <span className="font-medium ml-2">{formatDate(String(order.deadline))}</span></div>
+              {order.paymentMethod && (
+                <div className="col-span-2"><span className="text-[var(--color-text-secondary)]">Payment Method:</span> <span className="font-medium ml-2">{String(order.paymentMethod)}</span></div>
+              )}
             </div>
             
             {(order.threadColors as string[])?.length > 0 && (

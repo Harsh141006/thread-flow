@@ -32,8 +32,9 @@ export default function PortalOrdersPage() {
         params.set('customer', session.user.customerId);
         if (search) params.set('search', search);
         if (statusFilter) params.set('status', statusFilter);
+        params.set('_t', Date.now().toString()); // Bust cache
         
-        const res = await fetch(`/api/orders?${params}`);
+        const res = await fetch(`/api/orders?${params}`, { cache: 'no-store' });
         const data = await res.json();
         if (data.success) {
           setOrders(data.data.items);

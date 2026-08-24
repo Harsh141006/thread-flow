@@ -204,21 +204,41 @@ export default function OrderDetailPage() {
           )}
 
           {/* Status actions */}
-          {nextStatuses.length > 0 && (
+          {(nextStatuses.length > 0 || !['dispatched', 'delivered', 'rejected'].includes(currentStatus)) && (
             <Card>
               <h3 className="text-sm font-semibold text-[var(--color-text-primary)] mb-3">Actions</h3>
               <div className="space-y-2">
-                {nextStatuses.map((ns) => (
-                  <Button
-                    key={ns}
-                    variant="outline"
-                    className="w-full justify-start"
-                    onClick={() => handleStatusChange(ns)}
-                    loading={updating}
-                  >
-                    Move to {capitalize(ns)}
-                  </Button>
-                ))}
+                {!['dispatched', 'delivered', 'rejected'].includes(currentStatus) ? (
+                  <>
+                    <Button
+                      className="w-full justify-start bg-[var(--color-success)] text-white hover:bg-[var(--color-success-light)] border-none"
+                      onClick={() => handleStatusChange('dispatched')}
+                      loading={updating}
+                    >
+                      Approve Order
+                    </Button>
+                    <Button
+                      variant="outline"
+                      className="w-full justify-start text-[var(--color-danger)] border-[var(--color-danger)] hover:bg-[var(--color-danger-light)]"
+                      onClick={() => handleStatusChange('rejected')}
+                      loading={updating}
+                    >
+                      Reject Order
+                    </Button>
+                  </>
+                ) : (
+                  nextStatuses.map((ns) => (
+                    <Button
+                      key={ns}
+                      variant="outline"
+                      className="w-full justify-start"
+                      onClick={() => handleStatusChange(ns)}
+                      loading={updating}
+                    >
+                      Move to {capitalize(ns)}
+                    </Button>
+                  ))
+                )}
               </div>
             </Card>
           )}

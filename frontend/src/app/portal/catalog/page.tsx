@@ -17,7 +17,7 @@ const CATALOG_ITEMS = [
     category: 'Apparel',
     description: 'High-quality cotton blend polo, perfect for corporate uniforms and subtle left-chest embroidery.',
     basePrice: 450,
-    icon: <Shirt className="h-12 w-12 text-[var(--color-accent)]" />,
+    image: '/images/embroidered_polo_1787578894220.jpg',
   },
   {
     id: 'lehnga',
@@ -25,7 +25,7 @@ const CATALOG_ITEMS = [
     category: 'Traditional Wear',
     description: 'Bespoke lehnga with intricate heavy embroidery options. Fully customizable sizing and patterns.',
     basePrice: 4500,
-    icon: <Layers className="h-12 w-12 text-[var(--color-accent)]" />,
+    image: '/images/embroidered_lehnga_1787578919053.jpg',
   },
   {
     id: 'hoodie',
@@ -33,7 +33,7 @@ const CATALOG_ITEMS = [
     category: 'Apparel',
     description: 'Heavyweight fleece hoodie. Ideal for large back logos or bold front chest designs.',
     basePrice: 850,
-    icon: <Layers className="h-12 w-12 text-[var(--color-accent)]" />,
+    image: '/images/embroidered_hoodie_1787578946558.jpg',
   },
   {
     id: 'cap',
@@ -41,7 +41,7 @@ const CATALOG_ITEMS = [
     category: 'Accessories',
     description: 'Structured 6-panel cap. Great for front center 3D puff embroidery.',
     basePrice: 200,
-    icon: <Triangle className="h-12 w-12 text-[var(--color-accent)]" />, // Placeholder icon for cap
+    image: '/images/embroidered_cap_1787578960648.jpg',
   },
   {
     id: 'jacket',
@@ -49,7 +49,7 @@ const CATALOG_ITEMS = [
     category: 'Outerwear',
     description: 'Water-resistant corporate jacket. Recommended for sleek, professional right-chest branding.',
     basePrice: 1200,
-    icon: <ShoppingBag className="h-12 w-12 text-[var(--color-accent)]" />,
+    image: '/images/embroidered_jacket_1787578974621.jpg',
   },
   {
     id: 't-shirt',
@@ -57,7 +57,7 @@ const CATALOG_ITEMS = [
     category: 'Apparel',
     description: '100% combed cotton t-shirt. Versatile for any custom embroidery requirement.',
     basePrice: 250,
-    icon: <Scissors className="h-12 w-12 text-[var(--color-accent)]" />,
+    image: '/images/embroidered_tshirt_1787578990413.jpg',
   },
 ];
 
@@ -71,11 +71,15 @@ export default function CatalogPage() {
     >
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {CATALOG_ITEMS.map((item) => (
-          <Card key={item.id} className="flex flex-col h-full hover:border-[var(--color-accent)] transition-colors cursor-default">
-            <div className="flex justify-center py-6 bg-[var(--color-bg-muted)] rounded-[var(--radius-md)] mb-4">
-              {item.icon}
+          <Card key={item.id} className="flex flex-col h-full hover:border-[var(--color-accent)] transition-colors cursor-default" padding="none">
+            <div className="w-full h-56 relative overflow-hidden rounded-t-lg bg-[var(--color-bg-muted)]">
+              <img 
+                src={item.image} 
+                alt={item.name} 
+                className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+              />
             </div>
-            <div className="flex-1">
+            <div className="flex-1 p-5 flex flex-col">
               <div className="flex justify-between items-start mb-2">
                 <h3 className="text-lg font-semibold text-[var(--color-text-primary)]">{item.name}</h3>
                 <span className="text-sm font-medium text-[var(--color-text-secondary)] bg-[var(--color-bg-muted)] px-2 py-0.5 rounded">
@@ -86,13 +90,13 @@ export default function CatalogPage() {
               <p className="text-sm text-[var(--color-text-secondary)] mb-6 line-clamp-3">
                 {item.description}
               </p>
+              <Button 
+                className="w-full mt-auto" 
+                onClick={() => router.push(`/portal/orders/new?product=${item.name}&price=${item.basePrice}`)}
+              >
+                Customize & Order
+              </Button>
             </div>
-            <Button 
-              className="w-full mt-auto" 
-              onClick={() => router.push(`/portal/orders/new?product=${item.name}&price=${item.basePrice}`)}
-            >
-              Customize & Order
-            </Button>
           </Card>
         ))}
       </div>

@@ -6,11 +6,13 @@ import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '@/lib/db';
 import { requireRole } from '@/lib/api-auth';
 import Order from '@/models/Order';
+import Customer from '@/models/Customer';
+import User from '@/models/User';
 import { STATUS_TRANSITIONS, OrderStatus } from '@/types';
 
 // GET /api/orders/[id]
 export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  const { error } = await requireRole(['admin', 'sales', 'designer', 'production', 'qc']);
+  const { session, error } = await requireRole(['admin', 'sales', 'designer', 'production', 'qc', 'customer']);
   if (error) return error;
 
   try {
@@ -26,6 +28,14 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
       return NextResponse.json(
         { success: false, error: 'Order not found' },
         { status: 404 }
+      );
+    }
+
+    // Security check: if user is a customer, ensure this order belongs to them
+    if (session?.user.role === 'customer' && order.customer._id.toString() !== session.user.customerId) {
+      return NextResponse.json(
+        { success: false, error: 'Unauthorized access' },
+        { status: 403 }
       );
     }
 

@@ -23,6 +23,7 @@ export interface OrderDocument extends Document {
   notes?: string;
   designFile?: string;
   customerDesignPreview?: string;
+  paymentMethod?: string;
   createdBy: mongoose.Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;
@@ -43,7 +44,7 @@ const OrderSchema = new Schema<OrderDocument>(
     deadline: { type: Date, required: true },
     status: {
       type: String,
-      enum: ['draft', 'design', 'approval', 'scheduled', 'production', 'qc', 'rework', 'packed', 'delivered'],
+      enum: ['draft', 'design', 'approval', 'scheduled', 'production', 'qc', 'rework', 'packed', 'dispatched', 'delivered', 'rejected'],
       default: 'draft',
     },
     priority: {
@@ -55,6 +56,7 @@ const OrderSchema = new Schema<OrderDocument>(
     notes: { type: String, trim: true },
     designFile: { type: String }, // For admin uploading technical design
     customerDesignPreview: { type: String }, // Base64 image uploaded by customer
+    paymentMethod: { type: String, trim: true },
     createdBy: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   },
   { timestamps: true }

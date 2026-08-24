@@ -4,9 +4,12 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import mongoose from 'mongoose';
+
+export const dynamic = 'force-dynamic';
 import dbConnect from '@/lib/db';
 import { requireRole } from '@/lib/api-auth';
 import Order from '@/models/Order';
+import Customer from '@/models/Customer';
 import { getNextOrderId } from '@/models/Counter';
 
 import Payment from '@/models/Payment';
@@ -31,6 +34,12 @@ export async function GET(req: NextRequest) {
     if (session?.user.role === 'customer') {
       customer = session.user.customerId;
     }
+    
+    console.log('GET /api/orders called.', {
+      role: session?.user?.role,
+      sessionCustomerId: session?.user?.customerId,
+      finalCustomerFilter: customer
+    });
 
     const query: Record<string, unknown> = {};
     if (status) query.status = status;
@@ -131,6 +140,7 @@ export async function POST(req: NextRequest) {
         notes,
         status: 'draft',
         customerDesignPreview,
+        paymentMethod,
         createdBy: session!.user.id,
       }], { session: sessionTransaction });
 

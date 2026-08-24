@@ -106,6 +106,25 @@ export default function OrdersPage() {
     }
   };
 
+  const handleStatusChange = async (id: string, newStatus: OrderStatus) => {
+    try {
+      const res = await fetch(`/api/orders/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: newStatus }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        toast('success', `Order status updated to ${capitalize(newStatus)}`);
+        fetchOrders();
+      } else {
+        toast('error', data.error);
+      }
+    } catch {
+      toast('error', 'Failed to update status');
+    }
+  };
+
   const columns = [
     { key: 'orderId', label: 'Order', render: (o: OrderRow) => (
       <span className="font-medium text-[var(--color-accent)]">{o.orderId}</span>
@@ -129,6 +148,22 @@ export default function OrdersPage() {
     { key: 'priority', label: 'Priority', className: 'hidden lg:table-cell', render: (o: OrderRow) => {
       const colors: Record<string, string> = { low: 'default', normal: 'default', high: 'warning', urgent: 'danger' };
       return <Badge variant={(colors[o.priority] || 'default') as 'default' | 'warning' | 'danger'}>{capitalize(o.priority)}</Badge>;
+    }},
+    { key: 'actions', label: 'Actions', render: (o: OrderRow) => {
+      const isTerminal = ['dispatched', 'delivered', 'rejected'].includes(o.status);
+      if (!isTerminal) {
+        return (
+          <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
+            <Button size="sm" className="bg-[var(--color-success)] text-white hover:bg-[var(--color-success-light)] border-none" onClick={() => handleStatusChange(o._id, 'dispatched')}>
+              Approve
+            </Button>
+            <Button size="sm" variant="outline" className="text-[var(--color-danger)] border-[var(--color-danger)] hover:bg-[var(--color-danger-light)]" onClick={() => handleStatusChange(o._id, 'rejected')}>
+              Reject
+            </Button>
+          </div>
+        );
+      }
+      return <span className="text-[var(--color-text-muted)] text-xs">—</span>;
     }},
   ];
 

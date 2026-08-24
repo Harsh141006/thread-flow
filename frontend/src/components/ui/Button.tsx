@@ -15,6 +15,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: ButtonSize;
   loading?: boolean;
   icon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
 }
 
 const variantStyles: Record<ButtonVariant, string> = {
@@ -37,7 +38,7 @@ const sizeStyles: Record<ButtonSize, string> = {
 };
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ variant = 'primary', size = 'md', loading, icon, children, className = '', disabled, ...props }, ref) => {
+  ({ variant = 'primary', size = 'md', loading, icon, rightIcon, children, className = '', disabled, ...props }, ref) => {
     return (
       <button
         ref={ref}
@@ -59,6 +60,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           <span className="h-4 w-4 flex items-center">{icon}</span>
         ) : null}
         {children}
+        {rightIcon && !loading && (
+          <span className="h-4 w-4 flex items-center">{rightIcon}</span>
+        )}
       </button>
     );
   }

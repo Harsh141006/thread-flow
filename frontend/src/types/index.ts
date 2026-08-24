@@ -49,34 +49,38 @@ export type OrderStatus =
   | 'approval'
   | 'scheduled'
   | 'production'
-  | 'qc'
   | 'rework'
   | 'packed'
-  | 'delivered';
+  | 'dispatched'
+  | 'delivered'
+  | 'rejected';
 
 export const ORDER_STATUSES: { value: OrderStatus; label: string; color: string }[] = [
   { value: 'draft', label: 'Draft', color: 'gray' },
   { value: 'design', label: 'Design', color: 'blue' },
   { value: 'approval', label: 'Approval', color: 'yellow' },
   { value: 'scheduled', label: 'Scheduled', color: 'indigo' },
-  { value: 'production', label: 'Production', color: 'orange' },
   { value: 'qc', label: 'QC', color: 'purple' },
   { value: 'rework', label: 'Rework', color: 'red' },
   { value: 'packed', label: 'Packed', color: 'teal' },
+  { value: 'dispatched', label: 'Dispatched', color: 'cyan' },
   { value: 'delivered', label: 'Delivered', color: 'green' },
+  { value: 'rejected', label: 'Rejected', color: 'gray' },
 ];
 
 // Valid status transitions
 export const STATUS_TRANSITIONS: Record<OrderStatus, OrderStatus[]> = {
-  draft: ['design'],
-  design: ['approval'],
-  approval: ['scheduled', 'design'], // can go back for revision
-  scheduled: ['production'],
-  production: ['qc'],
-  qc: ['packed', 'rework'],
-  rework: ['production'],
-  packed: ['delivered'],
+  draft: ['design', 'dispatched', 'rejected'],
+  design: ['approval', 'dispatched', 'rejected'],
+  approval: ['scheduled', 'design', 'dispatched', 'rejected'], // can go back for revision
+  scheduled: ['production', 'dispatched', 'rejected'],
+  production: ['qc', 'dispatched', 'rejected'],
+  qc: ['packed', 'rework', 'dispatched', 'rejected'],
+  rework: ['production', 'dispatched', 'rejected'],
+  packed: ['dispatched', 'delivered', 'rejected'],
+  dispatched: ['delivered'],
   delivered: [],
+  rejected: [],
 };
 
 export interface IOrder {
@@ -97,6 +101,7 @@ export interface IOrder {
   assignedTo?: string;
   notes?: string;
   designFile?: string; // Cloudinary URL
+  paymentMethod?: string;
   createdBy: string;
   createdAt: Date;
   updatedAt: Date;
