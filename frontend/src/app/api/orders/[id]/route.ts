@@ -118,10 +118,10 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
     }
 
     return NextResponse.json({ success: true, data: updatedOrder });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Order update error:', error);
     return NextResponse.json(
-      { success: false, error: 'Failed to update order' },
+      { success: false, error: error.message || 'Failed to update order' },
       { status: 500 }
     );
   }
