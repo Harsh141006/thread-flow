@@ -8,6 +8,7 @@ import { requireRole } from '@/lib/api-auth';
 import Order from '@/models/Order';
 import Customer from '@/models/Customer';
 import User from '@/models/User';
+import Notification from '@/models/Notification';
 import { STATUS_TRANSITIONS, OrderStatus } from '@/types';
 
 // GET /api/orders/[id]
@@ -91,6 +92,27 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
     )
       .populate('customer', 'name company')
       .lean();
+
+    if (!updatedOrder) {
+      return NextResponse.json(
+        { success: false, error: 'Order not found after update' },
+        { status: 404 }
+      );
+    }
+
+    // Trigger Notification if dispatched
+    if (body.status === 'dispatched' && existingOrder.status !== 'dispatched') {
+      const user = await User.findOne({ customerId: updatedOrder.customer._id });
+      if (user) {
+        await Notification.create({
+          user: user._id,
+          title: 'Order Dispatched',
+          message: `Great news! Your order ${updatedOrder.orderId} has been dispatched.`,
+          type: 'success',
+          link: `/portal/orders/${updatedOrder._id}`
+        });
+      }
+    }
 
     return NextResponse.json({ success: true, data: updatedOrder });
   } catch (error) {

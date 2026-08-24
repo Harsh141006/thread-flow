@@ -272,3 +272,14 @@ export interface PaginatedResponse<T> {
   limit: number;
   totalPages: number;
 }
+// === Notification ===
+export interface INotification {
+  _id: string;
+  user: string | IUser;
+  title: string;
+  message: string;
+  type: 'info' | 'success' | 'warning' | 'error';
+  read: boolean;
+  link?: string;
+  createdAt: Date;
+}
