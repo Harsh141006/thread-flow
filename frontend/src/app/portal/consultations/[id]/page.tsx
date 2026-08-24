@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, use } from 'react';
 import { useRouter } from 'next/navigation';
 import PageContainer from '@/components/layout/PageContainer';
 import Card from '@/components/ui/Card';
@@ -11,7 +11,8 @@ import { PageLoader } from '@/components/ui/Spinner';
 import { ArrowLeft, Send } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 
-export default function ConsultationChatPage({ params }: { params: { id: string } }) {
+export default function ConsultationChatPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params);
   const router = useRouter();
   const { toast } = useToast();
   const { data: session } = useSession();
@@ -23,7 +24,7 @@ export default function ConsultationChatPage({ params }: { params: { id: string 
 
   useEffect(() => {
     fetchConsultation();
-  }, [params.id]);
+  }, [id]);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -33,7 +34,7 @@ export default function ConsultationChatPage({ params }: { params: { id: string 
 
   const fetchConsultation = async () => {
     try {
-      const res = await fetch(`/api/consultations/${params.id}`);
+      const res = await fetch(`/api/consultations/${id}`);
       const data = await res.json();
       if (data.success) {
         setConsultation(data.data);
@@ -52,7 +53,7 @@ export default function ConsultationChatPage({ params }: { params: { id: string 
     if (!message.trim()) return;
     setSending(true);
     try {
-      const res = await fetch(`/api/consultations/${params.id}`, {
+      const res = await fetch(`/api/consultations/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message }),
